@@ -18,9 +18,7 @@ export const uploadImg = async (
   )}-${Math.random()}-${Date.now()}`;
 
   const storage = getStorage();
-  let storageRef = ref(storage, `images/${nameImg}_${file}`);
-  const bytes = new Uint8Array();
-  var formData = new FormData();
+  let storageRef = ref(storage, `images/${nameImg}_${file.map((x) => x.name)}`);
   await uploadBytes(storageRef, file);
   const downLoadUrl = await getDownloadURL(storageRef);
   const updateDocument = await updateDoc(doc(db, 'posts', docRef.id), {
